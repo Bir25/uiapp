@@ -24,8 +24,12 @@ class HomePage extends StatelessWidget {
     ),
         body: Column(
           children: [
-
-          ],
+Image.network('https://images.unsplash.com/photo-1589998059171-988d887df646?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8Ym9va3xlbnwwfDB8MHx8&auto=format&fit=crop&w=500&q=60'),
+     SizedBox(height: 19,),
+     Container(
+height: 200,
+         width: double.infinity,
+         child: Image.asset('assets/images/book.jpg', fit:BoxFit.cover ,)),    ],
         ));
   }
 }
