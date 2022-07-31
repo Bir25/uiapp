@@ -1,3 +1,4 @@
+import 'package:appflut/models/book.dart';
 import 'package:flutter/material.dart';
 class HomePage extends StatelessWidget {
   
@@ -22,14 +23,112 @@ class HomePage extends StatelessWidget {
       ),
          ),
     ),
+
         body: Column(
           children: [
-Image.network('https://images.unsplash.com/photo-1589998059171-988d887df646?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8Ym9va3xlbnwwfDB8MHx8&auto=format&fit=crop&w=500&q=60'),
-     SizedBox(height: 19,),
+
      Container(
 height: 200,
          width: double.infinity,
-         child: Image.asset('assets/images/book.jpg', fit:BoxFit.cover ,)),    ],
-        ));
+         child: Image.asset('assets/images/book.jpg', fit:BoxFit.cover ,)
+     ),
+            SizedBox(height: 20,),
+
+          Container(
+              height:200,
+            width: double.infinity,
+            color: Colors.red,
+
+          child:
+           ListView.builder(
+             scrollDirection: Axis.horizontal,
+              itemCount: books.length,
+               itemBuilder: (context, index)
+              {
+                 final book = books[index];
+                return Container(
+                  width: 380,
+                  padding: EdgeInsets.only(left: index ==0 ? 5:0),
+                  child: Row(
+                     children: [
+                     Container(
+                       width:140,
+                       height: 210,
+                       child: ClipRRect(
+                           borderRadius: BorderRadius.circular(20),
+
+                           child: Image.network(book.imageUrl)),
+                     ),
+                      Card(
+                        child: Container(
+                          padding: EdgeInsets.symmetric(horizontal: 5),
+                          height: 210,
+                           width: 225,
+                           child: Column(
+                             crossAxisAlignment: CrossAxisAlignment.start,
+               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+               children: [
+                               Text(book.title),
+                               Text(book.summary, maxLines: 5, overflow: TextOverflow.ellipsis,),
+                 SizedBox(height: 10,),
+                 Row(
+                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(book.genre),
+                    // Spacer(),
+                    Text(book.ratingStar),
+                  ],
+                 )
+                           ],
+                         ),
+                        ),
+                      )
+                     ],
+                   ),
+    );
+               }
+           ),
+          ),
+
+            Padding(
+              padding: const EdgeInsets.only(top:15, bottom: 10, left: 10),
+              child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text('You may also like', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),)),
+            ),
+            Container(
+              margin: EdgeInsets.only(bottom: 3),
+              height: 195,
+              child:ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: books.length,
+                  itemBuilder: (context, index)
+                  {
+                    final book = books[index];
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 5),
+                      child: Container(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                                height:160,
+                                child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(10),
+
+                                    child: Image.network(book.imageUrl))),
+                            Text(book.title),
+                            SizedBox(height: 2,),
+                            Text(book.genre, style: TextStyle(color: Colors.blue),),
+                          ],
+                        ),
+                            ),
+                    );
+                  }
+              ),
+                      ),
+      ],
+                    ),
+              );
   }
 }
