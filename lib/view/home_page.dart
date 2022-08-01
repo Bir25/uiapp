@@ -1,5 +1,7 @@
 import 'package:appflut/models/book.dart';
+import 'package:appflut/view/detail_page.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 class HomePage extends StatelessWidget {
   
   @override
@@ -46,46 +48,57 @@ height: 200,
                itemBuilder: (context, index)
               {
                  final book = books[index];
-                return Container(
-                  width: 380,
-                  padding: EdgeInsets.only(left: index ==0 ? 5:0),
-                  child: Row(
-                     children: [
-                     Container(
-                       width:140,
-                       height: 210,
-                       child: ClipRRect(
-                           borderRadius: BorderRadius.circular(20),
+                return InkWell(
+                  onTap: ()
+                  {
+                   Get.to(()
+                   {
+                     return DetailPage();
+                   },transition: Transition.fadeIn);
 
-                           child: Image.network(book.imageUrl)),
-                     ),
-                      Card(
-                        child: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 5),
-                          height: 210,
-                           width: 225,
-                           child: Column(
-                             crossAxisAlignment: CrossAxisAlignment.start,
+                  },
+                  splashColor: Colors.green,
+                  child: Container(
+                    width: 380,
+                    padding: EdgeInsets.only(left: index ==0 ? 5:0),
+                    child: Row(
+                       children: [
+                       Container(
+                         width:140,
+                         height: 210,
+                         child: ClipRRect(
+                             borderRadius: BorderRadius.circular(20),
+
+                             child: Image.network(book.imageUrl)),
+                       ),
+                        Card(
+                          child: Container(
+                            padding: EdgeInsets.symmetric(horizontal: 5),
+                            height: 210,
+                             width: 225,
+                             child: Column(
+                               crossAxisAlignment: CrossAxisAlignment.start,
                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                children: [
-                               Text(book.title),
-                               Text(book.summary, maxLines: 5, overflow: TextOverflow.ellipsis,),
-                 SizedBox(height: 10,),
-                 Row(
-                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(book.genre),
-                    // Spacer(),
-                    Text(book.ratingStar),
-                  ],
-                 )
-                           ],
-                         ),
-                        ),
-                      )
-                     ],
-                   ),
-    );
+                                 Text(book.title),
+                                 Text(book.summary, maxLines: 5, overflow: TextOverflow.ellipsis,),
+                   SizedBox(height: 10,),
+                   Row(
+                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(book.genre),
+                      // Spacer(),
+                      Text(book.ratingStar),
+                    ],
+                   )
+                             ],
+                           ),
+                          ),
+                        )
+                       ],
+                     ),
+    ),
+                );
                }
            ),
           ),
