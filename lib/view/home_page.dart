@@ -53,7 +53,7 @@ height: 200,
                   {
                    Get.to(()
                    {
-                     return DetailPage();
+                     return DetailPage(book);
                    },transition: Transition.fadeIn);
 
                   },
