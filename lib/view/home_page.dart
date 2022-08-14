@@ -7,8 +7,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 
 
+
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +45,7 @@ class HomePage extends StatelessWidget {
                         itemBuilder: (context) {
                           return [
                             PopupMenuItem(
-                                value: Api.popularMoviesUrl,
+                                value: Api.popularMovieUrl,
                                 child: Text('popular')),
                             PopupMenuItem(
                                 value: Api.upComingMovieUrl,
@@ -76,8 +76,9 @@ class HomePage extends StatelessWidget {
                         ),
                         itemBuilder: (context, index){
                           final movie = movieState.movies[index];
-                          return Image.network('https://image.tmdb.org/t/p/w600_and_h900_bestv2/${movie.poster_path}');
-                        }))
+                          return Image.network('https://image.tmdb.org/t/p/w600_h900_bestv2/${movie.poster_path}');
+                        }),
+                )
               ],
             );
           }

@@ -20,7 +20,7 @@ class MovieState{
     required this.movies,
     required this.page
 });
-  MovieState.initState(): searchText = '', movies = [], page = 1, apiPath = Api.popularMoviesUrl;
+  MovieState.initState(): searchText = '', movies = [], page = 1, apiPath = Api.popularMovieUrl;
 MovieState copyWith({
   String? apiPath,
   String? searchText,

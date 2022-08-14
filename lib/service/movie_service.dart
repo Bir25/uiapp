@@ -21,7 +21,7 @@ print(err);
 return[];
     }
   }
-  static Future<List<Movie>>getsearchMovie({required String apiPath, required int page, required String query}) async{
+  static Future<List<Movie>>searchMovie({required String apiPath, required int page, required String query}) async{
     final dio = Dio();
     try{
       final response = await dio.get(apiPath, queryParameters: {
