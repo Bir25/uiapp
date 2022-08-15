@@ -13,7 +13,7 @@ final response = await dio.get(apiPath, queryParameters: {
   'language':'en-US',
   'page':1
 });
-final data = (response.data['result'] as List).map((e) => Movie.fromJson(e)).toList();
+final data = (response.data['results'] as List).map((e) => Movie.fromJson(e)).toList();
 return data;
 }on DioError catch(err)
     {
@@ -30,8 +30,13 @@ return[];
         'query': query,
         'page':1
       });
-      final data = (response.data['result'] as List).map((e) => Movie.fromJson(e)).toList();
-      return data;
+if((response.data['results'] as List).isEmpty){
+  return [Movie(id:0, title: 'no-data', overview: '', poster_path: "", release_date: "", vote_average: "")];
+}else{
+  final data = (response.data['results'] as List).map((e) => Movie.fromJson(e)).toList();
+  return data;
+}
+
     }on DioError catch(err)
     {
       print(err);

@@ -2,6 +2,7 @@
 
 
 
+import 'package:appflut/api.dart';
 import 'package:appflut/models/movie_state.dart';
 import 'package:appflut/service/movie_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -16,10 +17,34 @@ class MovieProvider extends StateNotifier<MovieState> {
   }
 
   Future <void> getMovieData() async {
-    final response = await MovieService.getMovieByCategory(
-        apiPath: state.apiPath, page: state.page);
+    if (state.searchText.isEmpty) {
+      final response = await MovieService.getMovieByCategory(
+          apiPath: state.apiPath, page: state.page);
+      state = state.copyWith(
+          movies: response
+      );
+    } else {
+      final response = await MovieService.searchMovie(
+          apiPath: state.apiPath, page: state.page, query: state.searchText);
+      state = state.copyWith(
+          movies: response
+      );
+    }
+  }
+  void changeCategory({required String apiPath}){
     state = state.copyWith(
-      movies: response
+      apiPath: apiPath,
+      searchText: '',
+      movies:[],
     );
+   getMovieData();
+}
+  void searchMovie({required String searchText }) {
+    state = state.copyWith(
+      apiPath: Api.searchMovieUrl,
+      searchText: searchText,
+      movies: [],
+    );
+    getMovieData();
   }
 }
