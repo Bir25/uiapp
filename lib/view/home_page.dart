@@ -156,7 +156,11 @@ final searchController = TextEditingController();
                             final before = onNotification.metrics.extentBefore;
                             final max = onNotification.metrics.maxScrollExtent;
                             if (before == max) {
-                              ref.read(movieProvider.notifier).loadMore();
+                              if(connectivity != ConnectivityResult.none)
+                                {
+                                  ref.read(movieProvider.notifier).loadMore();
+                                }
+
                             }
                           }
                           return true;
