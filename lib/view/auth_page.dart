@@ -76,7 +76,7 @@ class AuthPage extends StatelessWidget {
                     if(val!.isEmpty){
                       return 'please provide password';
                     } else if(val.length>20){
-                      return 'maximum limit is 19';
+                      return 'maximum limit is 20';
                     } else
                     {
                       return null;
@@ -114,7 +114,7 @@ class AuthPage extends StatelessWidget {
                             email: mailController.text.trim(),
                             password: passwordController.text.trim(),
                            );
-                        if(response!= 'success')
+                        if(response != 'success')
                           {
                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                                 duration: Duration(seconds: 1),
