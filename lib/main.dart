@@ -2,8 +2,6 @@
 
 
 import 'dart:async';
-
-import 'package:appflut/view/auth_page.dart';
 import 'package:appflut/view/status_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';

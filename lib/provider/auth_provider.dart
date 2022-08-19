@@ -52,7 +52,7 @@ class AuthProvider {
           email: email, password: password);
       return 'success';
     } on FirebaseAuthException catch (err) {
-      return '${err.message}';
+      return '${err.code}';
     }
   }
 

@@ -69,7 +69,7 @@ class AuthPage extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 10,),
-                TextFormField(
+               TextFormField(
                   controller: passwordController,
                   obscureText: true,
                   validator: (val){
@@ -97,7 +97,7 @@ class AuthPage extends StatelessWidget {
                     decoration: BoxDecoration(
                       border: Border.all(color: Colors.green)
                     ),
-                    child: image == null? Center(child: Text('please select an image')):
+                    child: image == null ? Center(child: Text('please select an image')):
                   Image.file(File(image.path)),
                     height: 200,
                   ),
