@@ -67,7 +67,7 @@ class AuthProvider {
     final uid = FirebaseAuth.instance.currentUser!.uid;
     final response = userDb.doc(uid).snapshots();
     final userType = response.map((event) {
-      final json = event.data();
+      final json =  event.data();
       return types.User(
         id: event.id,
         imageUrl: json!['imageUrl'],

@@ -16,6 +16,6 @@ class HomePage extends StatelessWidget {
           title: Text('Social App'),
         ),
         body: Container(),
-    drawer: DrawerWidget(),);
+    drawer: DrawerWidgets(),);
   }
 }

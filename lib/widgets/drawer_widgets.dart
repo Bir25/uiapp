@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 
 
-class DrawerWidget extends StatelessWidget {
+class DrawerWidgets extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {

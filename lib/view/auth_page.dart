@@ -2,11 +2,11 @@ import 'dart:io';
 
 import 'package:appflut/provider/auth_provider.dart';
 import 'package:appflut/provider/image_provider.dart';
+import 'package:appflut/provider/login_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 
-import '../provider/login_provider.dart';
 
 
 
@@ -47,7 +47,7 @@ class AuthPage extends StatelessWidget {
 
                   },
                   decoration: InputDecoration(
-                    hintText: 'UserName',
+                    hintText: 'username',
                   ),
                 ),
                 SizedBox(height: 10,),
@@ -103,7 +103,10 @@ class AuthPage extends StatelessWidget {
                   ),
              ),
                 SizedBox(height: 15,),
-                ElevatedButton(onPressed: () async{
+                ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        minimumSize: Size(200, 45)),
+                    onPressed: () async{
                   _form.currentState!.save();
                   if(_form.currentState!.validate()) {
                     FocusScope.of(context).unfocus();
@@ -148,7 +151,7 @@ class AuthPage extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(isLogin ? 'Don\'t have account ?' : 'Already have a Account!'),
+                    Text(isLogin ? 'Do not have account ?' : 'Already have a Account!'),
                     TextButton(onPressed: (){
                       ref.read(loginProvider.notifier).toggle();
                     }, child: Text(isLogin ? 'Sign Up' : 'Login'))
