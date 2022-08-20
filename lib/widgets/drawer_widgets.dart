@@ -21,7 +21,7 @@ class DrawerWidget extends StatelessWidget {
 
                   DrawerHeader(
                       decoration: BoxDecoration(
-                        image: DecorationImage(image: NetworkImage(data.imageUrl!))
+                        image: DecorationImage(image:NetworkImage(data.imageUrl!))
                       ),
                       child: Text(data.metadata!['email'])),
                     ListTile(
@@ -35,8 +35,8 @@ class DrawerWidget extends StatelessWidget {
                   ],
                 );
           },
-              error:(err, stack)=>Center(child: Text('$err')),
-              loading:()=>Center(
+              error:(err, stack) =>Center(child: Text('$err')),
+              loading:() =>Center(
                 child: CircularProgressIndicator(
                   color: Colors.pink,),));
         }

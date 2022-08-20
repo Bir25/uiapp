@@ -13,3 +13,15 @@ class LoginProvider extends StateNotifier<bool>
     state = !state;
   }
 }
+final loadingProvider = StateNotifierProvider.autoDispose<LoadingProvider, bool>((ref) => LoadingProvider(false));
+
+
+class LoadingProvider extends StateNotifier<bool>{
+  LoadingProvider(super.state);
+
+  void toggle(){
+    state = !state;
+  }
+
+
+}

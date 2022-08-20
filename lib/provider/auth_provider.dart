@@ -8,6 +8,7 @@ import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 
 
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -28,10 +29,8 @@ class AuthProvider {
           'userImage/${image.name}');
       await ref.putFile(File(image.path));
       final imageUrl = await ref.getDownloadURL();
-      final response = await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(email: email, password: password);
-      await FirebaseChatCore.instance.createUserInFirestore(
-        types.User(
+      final response = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
+      await FirebaseChatCore.instance.createUserInFirestore(types.User(
             firstName: username,
             id: response.user!.uid,
             imageUrl: imageUrl,
@@ -50,7 +49,7 @@ class AuthProvider {
     try {
       final response = await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: email, password: password);
-      return 'success';
+     return 'success';
     } on FirebaseAuthException catch (err) {
       return '${err.code}';
     }
