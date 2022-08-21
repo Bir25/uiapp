@@ -72,7 +72,7 @@ class AuthProvider {
         id: event.id,
         imageUrl: json!['imageUrl'],
         metadata: {
-          'email ': json['metadata']['email']
+          'email': json['metadata']['email']
         },
         firstName: json['firstName'],
       );
