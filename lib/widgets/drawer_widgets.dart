@@ -1,7 +1,7 @@
 import 'package:appflut/provider/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
+import 'package:get/get.dart';
 
 
 
@@ -24,6 +24,21 @@ class DrawerWidgets extends StatelessWidget {
                         image: DecorationImage(image:NetworkImage(data.imageUrl!))
                       ),
                       child: Text(data.metadata!['email'])),
+                    ListTile(
+                      onTap: () {
+                        Navigator.of(context).pop();
+                      },
+                      leading: Icon(Icons.av_timer),
+                      title: Text(data.firstName!),
+                    ),
+                    ListTile(
+                      onTap: () {
+                        Navigator.of(context).pop();
+                        ref.read(authProvider).userLogOut();
+                      },
+                      leading: Icon(Icons.add),
+                      title: Text('create post'),
+                    ),
                     ListTile(
                       onTap: () {
                         Navigator.of(context).pop();

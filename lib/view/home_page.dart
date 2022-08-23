@@ -1,12 +1,16 @@
+import 'package:appflut/provider/auth_provider.dart';
 import 'package:appflut/widgets/drawer_widgets.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 
 
 
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+
+  final uid = FirebaseAuth.instance.currentUser!.uid;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +19,43 @@ class HomePage extends StatelessWidget {
           backgroundColor: Colors.blue,
           title: Text('Social App'),
         ),
-        body: Container(),
+        body: Consumer(
+          builder: (context, ref, child) {
+            final users = ref.watch(usersStream);
+            return Column(
+              children: [
+                Container(
+                  height: 149,
+                  child: users.when(
+                      data: (data) {
+                        final dat = data.where((element) => element.id != uid).toList();
+                        return ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: dat.length,
+                          itemBuilder: (context, index){
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                children: [
+                                  CircleAvatar(
+                                    radius: 50,
+                                    backgroundImage:NetworkImage(dat[index].imageUrl!) ,
+                                  ),
+                                  SizedBox(height: 10,),
+                                  Text(dat[index].firstName!, style: TextStyle(fontSize:17),)
+                                ],
+                              ),
+                            );
+                          },
+                        );
+                      },
+                      error: (err, stack) => Text('$err'),
+                      loading: () => Container(),
+                ),
+                ),
+              ],
+            );
+          }),
     drawer: DrawerWidgets(),);
   }
 }

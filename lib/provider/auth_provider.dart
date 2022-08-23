@@ -17,6 +17,7 @@ import 'package:image_picker/image_picker.dart';
 final authStream = StreamProvider.autoDispose((ref) => FirebaseAuth.instance.authStateChanges());
 final authProvider = Provider((ref) => AuthProvider());
 final userStream = StreamProvider.autoDispose((ref) => AuthProvider().getSingleUser());
+final usersStream = StreamProvider.autoDispose((ref) => AuthProvider().getUsers());
 class AuthProvider {
   final userDb = FirebaseFirestore.instance.collection('users');
 
@@ -29,15 +30,16 @@ class AuthProvider {
           'userImage/${image.name}');
       await ref.putFile(File(image.path));
       final imageUrl = await ref.getDownloadURL();
-      final response = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
+      final response = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: email, password: password);
       await FirebaseChatCore.instance.createUserInFirestore(types.User(
-            firstName: username,
-            id: response.user!.uid,
-            imageUrl: imageUrl,
-            metadata: {
-              'email': email
-            }
-        ),
+          firstName: username,
+          id: response.user!.uid,
+          imageUrl: imageUrl,
+          metadata: {
+            'email': email
+          }
+      ),
       );
     } on FirebaseAuthException catch (err) {
       print(err);
@@ -49,7 +51,7 @@ class AuthProvider {
     try {
       final response = await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: email, password: password);
-     return 'success';
+      return 'success';
     } on FirebaseAuthException catch (err) {
       return '${err.code}';
     }
@@ -67,7 +69,7 @@ class AuthProvider {
     final uid = FirebaseAuth.instance.currentUser!.uid;
     final response = userDb.doc(uid).snapshots();
     final userType = response.map((event) {
-      final json =  event.data();
+      final json = event.data();
       return types.User(
         id: event.id,
         imageUrl: json!['imageUrl'],
@@ -79,5 +81,26 @@ class AuthProvider {
     });
     return userType;
   }
+
+  Stream<List<types.User>> getUsers() {
+    return userDb.snapshots().map((event) => getUserData(event));
+  }
+
+  List<types.User> getUserData(QuerySnapshot snapshot) {
+    final response = snapshot.docs.map((event) {
+      final json = event.data() as Map<String, dynamic>;
+      return types.User(
+        id: event.id,
+        imageUrl: json['imageUrl'],
+        metadata: {
+          'email': json['metadata']['email']
+        },
+        firstName: json['firstName'],
+      );
+    }
+    ).toList();
+    return response;
+  }
 }
+
 
