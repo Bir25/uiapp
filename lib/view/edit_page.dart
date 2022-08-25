@@ -107,15 +107,16 @@ class EditPage extends StatelessWidget {
                             }
 
                           } else{
-                            final response = await ref.read(crudProvider).updatePost(
+
+                          final response = await ref.read(crudProvider).updatePost(
                                 title: titleController.text.trim(),
-                                description: descController.text.trim(),
-                                postId: post.id,
+                            description: descController.text.trim(),
+                            postId: post.id,
                             image: image,
-                        imageName: post.imageName    );
+                         imageName: post.imageName    );
                             if(response == 'success'){
                               Navigator.of(context).pop();
-                            }
+                             }
 
                           }
                         }

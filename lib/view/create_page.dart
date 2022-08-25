@@ -99,16 +99,19 @@ class CreatePage extends StatelessWidget {
                                 title: 'image required',
                                 content: Text('please select an image'),
                                 actions: [ TextButton(
-                                    onPressed: () async {
+                                    onPressed: ()  {
                                       Navigator.of(context).pop();
                                     }, child: Text('close'))
                                 ]
                             );
                           } else {
-                            final response = ref.read(crudProvider).postAdd(
+                            final response = await ref.read(crudProvider).postAdd(
                                 title: titleController.text.trim(),
                                 description: descController.text.trim(),
                                 userId: userId, image: image);
+                            if(response  == 'success'){
+                              Navigator.of(context).pop();
+                            }
                           }
                         }
                       }, child: Text('submit')),
