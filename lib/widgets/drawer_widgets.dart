@@ -1,4 +1,5 @@
 import 'package:appflut/provider/auth_provider.dart';
+import 'package:appflut/view/create_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
@@ -34,7 +35,7 @@ class DrawerWidgets extends StatelessWidget {
                     ListTile(
                       onTap: () {
                         Navigator.of(context).pop();
-                        ref.read(authProvider).userLogOut();
+                        Get.to(() => CreatePage(), transition: Transition.leftToRight);
                       },
                       leading: Icon(Icons.add),
                       title: Text('create post'),

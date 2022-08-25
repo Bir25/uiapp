@@ -1,4 +1,5 @@
 import 'package:appflut/provider/auth_provider.dart';
+import 'package:appflut/provider/crud_provider.dart';
 import 'package:appflut/widgets/drawer_widgets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +23,7 @@ class HomePage extends StatelessWidget {
         body: Consumer(
           builder: (context, ref, child) {
             final users = ref.watch(usersStream);
+            final posts = ref.watch(postStream);
             return Column(
               children: [
                 Container(
@@ -53,6 +55,23 @@ class HomePage extends StatelessWidget {
                       loading: () => Container(),
                 ),
                 ),
+
+               Container(
+                 child: posts.when(
+                     data:(data) {
+                       return ListView.builder(
+                         shrinkWrap: true,
+                       itemCount: data.length,
+                       itemBuilder: (context, index){
+                         return Image.network(data[index].imageUrl);
+            });
+            },
+                     error: (err, stack) => Center(child: Text('$err')),
+                     loading: () => Center(child: CircularProgressIndicator(
+            color: Colors.lightGreen,
+            ))
+            ),
+               ),
               ],
             );
           }),
