@@ -1,9 +1,11 @@
 import 'package:appflut/provider/auth_provider.dart';
 import 'package:appflut/provider/crud_provider.dart';
+import 'package:appflut/view/edit_page.dart';
 import 'package:appflut/widgets/drawer_widgets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get/get.dart';
 
 
 
@@ -55,15 +57,52 @@ class HomePage extends StatelessWidget {
                       loading: () => Container(),
                 ),
                 ),
-
+         SizedBox(height: 10,),
                Container(
+                 height: 500,
+                 padding: EdgeInsets.symmetric(horizontal: 10) ,
                  child: posts.when(
                      data:(data) {
                        return ListView.builder(
                          shrinkWrap: true,
                        itemCount: data.length,
                        itemBuilder: (context, index){
-                         return Image.network(data[index].imageUrl);
+                         return Container(
+                             child: Column(
+                               crossAxisAlignment: CrossAxisAlignment.start,
+                               children: [
+                                 Row(
+                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                   children: [
+                                     Expanded(child: Text(data[index].title,
+                                     overflow: TextOverflow.ellipsis, maxLines: 2,)),
+                                    if(uid == data[index].userId ) IconButton(onPressed: (){
+                                      Get.defaultDialog(
+                                        title: 'edit page',
+                                        content: Text('customize you post'),
+                                        actions: [
+                                          IconButton(onPressed: (){
+                                            Navigator.of(context).pop();
+                                            Get.to(() => EditPage(data[index]), transition: Transition.leftToRight);
+                                          }, icon: Icon(Icons.edit)),
+                                          IconButton(onPressed: (){}, icon: Icon(Icons.delete)),
+                                        ]
+                                      );
+                                    }, icon: Icon(Icons.edit) )
+                                   ],
+                                 ),
+                                 if(uid != data[index].userId )   SizedBox(height: 10,),
+                                 Image.network(data[index].imageUrl,
+                                   height: 250,
+                                   width: 300,
+                                   fit: BoxFit.fitHeight,),
+                                 SizedBox(height: 10,),
+                                 Container(
+                                   width: double.infinity,
+                                     child: Text(data[index].description, overflow: TextOverflow.ellipsis, maxLines: 2,))
+                                 
+                               ],
+                             ));
             });
             },
                      error: (err, stack) => Center(child: Text('$err')),

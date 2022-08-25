@@ -80,9 +80,9 @@ return '${err.code}';
 
 
         final ref = FirebaseStorage.instance.ref().child(
-            'postImage/${imageName}');
+            'postImage/$imageName');
         await ref.delete();
-        final response = await postDb.doc(postId).delete();
+        await postDb.doc(postId).delete();
       return 'success';
     }on FirebaseException catch(err){
       print(err);
@@ -104,7 +104,7 @@ return snapshot.docs.map((e) {
       id: e.id,
       title: json ['title'],
       description: json['description'],
-      like: Like.fromJson(json['Like']),
+      like: Like.fromJson(json['like']),
       userId: json['userId'],
       imageName: json['imageName']);
 }).toList();
