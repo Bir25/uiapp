@@ -1,5 +1,6 @@
 import 'package:appflut/provider/auth_provider.dart';
 import 'package:appflut/provider/crud_provider.dart';
+import 'package:appflut/view/detail_page.dart';
 import 'package:appflut/view/edit_page.dart';
 import 'package:appflut/widgets/drawer_widgets.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -118,11 +119,16 @@ class HomePage extends StatelessWidget {
                                    ],
                                  ),
                                  if(uid != data[index].userId )   SizedBox(height: 10,),
-                                 CachedNetworkImage(
-                                  imageUrl: data[index].imageUrl,
-                                   height: 250,
-                                   width: 300,
-                                   fit: BoxFit.fitHeight,),
+                                 InkWell(
+                                   onTap: (){
+                                     Get.to(() => DetailPage(data[index]), transition: Transition.leftToRight);
+                         },
+                                   child: CachedNetworkImage(
+                                    imageUrl: data[index].imageUrl,
+                                     height: 250,
+                                     width: 300,
+                                     fit: BoxFit.fitHeight,),
+                                 ),
                                  SizedBox(height: 10,),
                                  Container(
                                    width: double.infinity,
