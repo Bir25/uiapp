@@ -24,7 +24,7 @@ final response = await postDb.add({
  'imageUrl':imageUrl,
  'userId':userId,
   'imageName':image.name,
- 'Comments':[],
+ 'comments':[],
  'like':{
    'likes':0,
    'usernames':[]
@@ -101,7 +101,7 @@ return snapshot.docs.map((e) {
   
   return Post(
       imageUrl: json ['imageUrl'],
-      comments:(json['Comments'] as List ).map((e) => Comments.fromJson(e)).toList(),
+      comments:(json['comments'] as List ).map((e) => Comments.fromJson(e)).toList(),
       id: e.id,
       title: json ['title'],
       description: json['description'],
@@ -126,4 +126,19 @@ return snapshot.docs.map((e) {
     }
   }
 
+
+  Future<String> addComment({ required  Comments comments, required String postId })async{
+    try{
+
+      await postDb.doc(postId).update({
+
+          'comments': FieldValue.arrayUnion([comments.toJson()])
+        }
+      );
+      return 'success';
+    }on FirebaseException catch(err){
+      print(err);
+      return '${err.code}';
+    }
+  }
 }

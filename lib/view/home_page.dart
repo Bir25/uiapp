@@ -20,6 +20,7 @@ class HomePage extends StatelessWidget {
   late types.User currentUser;
 
   @override
+
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
@@ -121,7 +122,7 @@ class HomePage extends StatelessWidget {
                                  if(uid != data[index].userId )   SizedBox(height: 10,),
                                  InkWell(
                                    onTap: (){
-                                     Get.to(() => DetailPage(data[index]), transition: Transition.leftToRight);
+                                     Get.to(() => DetailPage(data[index], currentUser), transition: Transition.leftToRight);
                          },
                                    child: CachedNetworkImage(
                                     imageUrl: data[index].imageUrl,
@@ -136,7 +137,7 @@ class HomePage extends StatelessWidget {
                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                        children: [
                                          Text(data[index].description, overflow: TextOverflow.ellipsis, maxLines: 2,),
-                                      if(data[index] != uid)   Row(
+                                      if(data[index].userId != uid)   Row(
                                         children: [
                                           IconButton(onPressed: (){
                                             if(data[index].like.usernames.contains(currentUser.firstName)){
