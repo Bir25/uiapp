@@ -27,10 +27,7 @@ final response = await postDb.add({
  'comments':[],
  'like':{
    'likes':0,
-   'usernames':[]
- },
-  
-});
+   'usernames':[]}});
 return 'success';
     }on FirebaseException catch(err){
 print(err);

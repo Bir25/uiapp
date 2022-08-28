@@ -4,10 +4,9 @@ import 'package:appflut/models/post.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:appflut/provider/crud_provider.dart';
 import 'package:appflut/provider/image_provider.dart';
-import 'package:appflut/provider/login_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get/get.dart';
+
 
 
 
