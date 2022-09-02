@@ -25,7 +25,7 @@ class AuthPage extends StatelessWidget {
       builder: (context, ref, child) {
         final isLogin = ref.watch(loginProvider);
         final image = ref.watch(imageProvider).image;
-        return Form(
+          return Form(
           key: _form,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 25),
