@@ -8,12 +8,12 @@ class Like{
 
   factory Like.fromJson(Map<String, dynamic>json){
     return Like(
-    likes: json['likes'],
+    likes: json['like'],
     usernames:(json['usernames'] as List).map((e) => e as String).toList());
   }
   Map<String, dynamic> toJson(){
     return{
-      'likes':this.likes,
+      'like':this.likes,
       'usernames': this.usernames,
     };
   }
@@ -42,8 +42,8 @@ class Comments{
   Map<String, dynamic> toJson(){
     return{
       'comment':this.comment,
-      'usernames': this.username,
-      'imageURL': this.imageUrl
+      'username': this.username,
+      'imageUrl': this.imageUrl
     };
   }
 }

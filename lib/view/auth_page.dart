@@ -39,7 +39,7 @@ class AuthPage extends StatelessWidget {
                     if(val!.isEmpty){
                       return 'please provide username';
                     } else if(val.length > 20){
-                      return 'maximun character is 19';
+                      return 'maximum character is 19';
                     } else
                     {
                       return null;

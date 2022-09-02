@@ -8,6 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 
 
+
  final crudProvider = Provider((ref) => CrudProvider());
  final postStream = StreamProvider((ref) => CrudProvider().getPostStream());
 class CrudProvider{
